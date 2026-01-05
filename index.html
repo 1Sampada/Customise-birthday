@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Birthday Surprise! 🎂</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta property="og:title" content="A Birthday Surprise for You!">
     <meta property="og:description" content="Open to see your special card.">
     <meta property="og:type" content="website">
@@ -67,26 +67,13 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeOut {
-            from {
-                opacity: 1;
-                transform: scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.95);
-                pointer-events: none;
-            }
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); pointer-events: none; }
         }
 
         canvas#bg-canvas {
@@ -97,28 +84,23 @@
         }
 
         /* --- INTERACTIVE ELEMENTS --- */
-        .option,
-        .rel-card {
+        .option, .rel-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .option:hover,
-        .rel-card:hover {
+        .option:hover, .rel-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        .option.active,
-        .rel-card.active {
+        .option.active, .rel-card.active {
             border: 2px solid currentColor;
             background-color: rgba(255, 255, 255, 0.95);
             transform: scale(1.05);
             box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6);
         }
 
-        .rel-card {
-            border: 2px solid transparent;
-        }
+        .rel-card { border: 2px solid transparent; }
 
         /* --- CANDLE ANIMATIONS --- */
         .candle-container {
@@ -202,45 +184,19 @@
         }
 
         @keyframes flicker-enhanced {
-            0%, 100% {
-                transform: translateX(-50%) scale(1) skewX(0deg);
-                opacity: 0.9;
-            }
-            20% {
-                transform: translateX(-50%) scale(1.05) skewX(-2deg);
-                opacity: 1;
-            }
-            40% {
-                transform: translateX(-50%) scale(0.95) skewX(2deg);
-                opacity: 0.8;
-            }
-            60% {
-                transform: translateX(-50%) scale(1.02) skewX(-1deg);
-                opacity: 1;
-            }
-            80% {
-                transform: translateX(-50%) scale(0.98) skewX(1deg);
-                opacity: 0.9;
-            }
+            0%, 100% { transform: translateX(-50%) scale(1) skewX(0deg); opacity: 0.9; }
+            20% { transform: translateX(-50%) scale(1.05) skewX(-2deg); opacity: 1; }
+            40% { transform: translateX(-50%) scale(0.95) skewX(2deg); opacity: 0.8; }
+            60% { transform: translateX(-50%) scale(1.02) skewX(-1deg); opacity: 1; }
+            80% { transform: translateX(-50%) scale(0.98) skewX(1deg); opacity: 0.9; }
         }
 
-        .blown .flame {
-            display: none;
-        }
-
-        .blown .smoke {
-            opacity: 0.6;
-            animation: rise 2.5s forwards ease-out;
-        }
+        .blown .flame { display: none; }
+        .blown .smoke { opacity: 0.6; animation: rise 2.5s forwards ease-out; }
 
         @keyframes rise {
-            from {
-                transform: translateX(-50%) translateY(0) scale(1);
-            }
-            to {
-                transform: translateX(-50%) translateY(-80px) scale(2);
-                opacity: 0;
-            }
+            from { transform: translateX(-50%) translateY(0) scale(1); }
+            to { transform: translateX(-50%) translateY(-80px) scale(2); opacity: 0; }
         }
 
         /* --- COLLAGE STYLES --- */
@@ -262,25 +218,12 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.15) inset;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* Desktop: 3 cols */
             gap: 40px;
             padding: 60px 60px 100px 60px;
             overflow-y: auto;
             align-items: center;
             justify-items: center;
-        }
-
-        @media (max-width: 1024px) {
-            #collage-board {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 640px) {
-            #collage-board {
-                grid-template-columns: 1fr;
-                padding: 30px;
-            }
         }
 
         .polaroid {
@@ -289,24 +232,12 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-radius: 2rem;
             position: relative;
-            width: 280px;
+            width: 100%; /* Fluid width */
+            max-width: 280px; /* Cap max width */
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.3s ease;
-        }
-
-        .polaroid:hover {
-            transform: scale(1.02) !important;
-            z-index: 50;
-        }
-
-        .polaroid:nth-child(odd) {
-            transform: rotate(-3deg);
-        }
-
-        .polaroid:nth-child(even) {
-            transform: rotate(3deg);
         }
 
         .polaroid-img {
@@ -323,42 +254,57 @@
             transition: background 0.3s ease;
         }
 
-        .polaroid-img:hover {
-            background-color: #e5e7eb;
-            border-color: #9ca3af;
-        }
-
-        .polaroid-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .tape, .clip {
-            position: absolute;
-            pointer-events: none;
-            z-index: 10;
-        }
-
         .tape {
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-1deg);
-            width: 90px;
-            height: 28px;
-            background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(4px);
+            top: -15px; left: 50%; transform: translateX(-50%) rotate(-1deg);
+            width: 90px; height: 28px; background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); backdrop-filter: blur(4px);
+            position: absolute; pointer-events: none; z-index: 10;
         }
 
         .clip {
-            top: -20px;
-            right: 25px;
-            width: 20px;
-            height: 45px;
-            border: 4px solid #9ca3af;
-            border-radius: 12px;
+            top: -20px; right: 25px; width: 20px; height: 45px;
+            border: 4px solid #9ca3af; border-radius: 12px;
+            position: absolute; pointer-events: none; z-index: 10;
         }
+
+        /* --- MOBILE LAYOUT FIX --- */
+        @media (max-width: 640px) {
+            #collage-board {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+                gap: 12px; /* Smaller gap */
+                padding: 20px 15px 100px 15px; /* Less padding */
+                height: 95vh; /* Max height to fit screen */
+                align-content: start;
+                border-radius: 2rem;
+            }
+
+            .polaroid {
+                padding: 8px 8px 35px 8px; /* Reduce frame padding */
+                border-radius: 1rem;
+                max-width: none; /* Fill grid cell */
+                transform: none !important; /* Remove rotation to fit grid */
+            }
+
+            .polaroid:hover {
+                transform: scale(1.02) !important;
+            }
+
+            .polaroid-img {
+                height: 110px; /* Smaller image height */
+                border-radius: 0.8rem;
+            }
+
+            .handwritten {
+                font-size: 0.9rem; /* Smaller caption text */
+                margin-top: 8px;
+            }
+
+            .tape { width: 50px; height: 15px; top: -8px; }
+            .clip { width: 12px; height: 25px; top: -10px; right: 10px; border-width: 2px; }
+        }
+
+        .polaroid-img:hover { background-color: #e5e7eb; border-color: #9ca3af; }
+        .polaroid-img img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- NOTE STYLES --- */
         .lined-paper {
@@ -370,103 +316,44 @@
         }
 
         .paper-stack::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: -5px;
-            bottom: -5px;
-            background: white;
-            border-radius: 2rem;
-            z-index: -1;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            content: ''; position: absolute; top: 5px; left: 5px; right: -5px; bottom: -5px;
+            background: white; border-radius: 2rem; z-index: -1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); opacity: 0.8;
         }
 
         .copy-input {
-            font-family: monospace;
-            background: #f3f4f6;
-            color: #374151;
-            border: 1px solid #d1d5db;
-            border-radius: 0.75rem;
+            font-family: monospace; background: #f3f4f6; color: #374151;
+            border: 1px solid #d1d5db; border-radius: 0.75rem;
         }
 
-        /* --- CAPTURE CARD STYLES (Off-Screen) --- */
+        /* --- CAPTURE CARD STYLES --- */
         #story-capture-container {
-            position: fixed;
-            top: 0;
-            left: -9999px;
-            width: 540px;
-            height: 960px;
-            z-index: -100;
-            background: white;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-            box-sizing: border-box;
-            align-items: center;
+            position: fixed; top: 0; left: -9999px; width: 540px; height: 960px; z-index: -100;
+            background: white; font-family: 'Poppins', sans-serif;
+            overflow: hidden; display: flex; flex-direction: column; padding: 30px; box-sizing: border-box; align-items: center;
         }
 
-        .story-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
+        .story-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; margin-bottom: 20px; }
+        
         .story-polaroid {
-            background: #ffffff;
-            padding: 10px 10px 35px 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            transform: rotate(-2deg);
+            background: #ffffff; padding: 10px 10px 35px 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 12px; transform: rotate(-2deg);
         }
-
-        .story-polaroid:nth-child(even) {
-            transform: rotate(2deg);
-        }
-
-        .story-polaroid:nth-child(3n) {
-            transform: rotate(-1deg) translateY(-5px);
-        }
-
-        .story-polaroid img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 8px;
-            background-color: #f3f4f6;
-        }
+        .story-polaroid:nth-child(even) { transform: rotate(2deg); }
+        .story-polaroid:nth-child(3n) { transform: rotate(-1deg) translateY(-5px); }
+        .story-polaroid img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; background-color: #f3f4f6; }
 
         .story-note-paper {
-            background-color: #fffdf5;
-            background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
-            background-size: 100% 1.8rem;
-            line-height: 1.8rem;
-            padding: 25px;
-            width: 95%;
-            border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            font-family: 'Gloria Hallelujah', cursive;
-            font-size: 14px;
-            color: #555;
-            position: relative;
-            flex-grow: 1;
+            background-color: #fffdf5; background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 100% 1.8rem; line-height: 1.8rem; padding: 25px; width: 95%;
+            border-radius: 16px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            font-family: 'Gloria Hallelujah', cursive; font-size: 14px; color: #555; position: relative; flex-grow: 1;
         }
 
         .washi-tape-top {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-1deg);
-            width: 120px;
-            height: 25px;
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-1deg); width: 120px; height: 25px;
             background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 10px, rgba(240, 240, 240, 0.6) 10px, rgba(240, 240, 240, 0.6) 20px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); opacity: 0.8;
         }
     </style>
 </head>
@@ -797,9 +684,9 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // 🔥 CLOUDINARY CONFIG
+        // 🔥 CLOUDINARY CONFIG - YOU MUST CHANGE THIS!
         // REPLACE "xxxxx" WITH YOUR ACTUAL CLOUDINARY CLOUD NAME
-        const CLOUDINARY_CLOUD_NAME = "xxxxx";
+        const CLOUDINARY_CLOUD_NAME = "birthday_unsigned"; 
         const CLOUDINARY_UPLOAD_PRESET = "birthday_unsigned";
 
         /* --- CONFIGURATION --- */
@@ -826,17 +713,22 @@
         /* --- INIT --- */
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
+            const welcomeScreen = document.getElementById('welcome-screen');
 
             if (urlParams.has('gift')) {
+                // Recipient Mode: Ensure welcome screen is HIDDEN
                 isRecipientMode = true;
+                welcomeScreen.classList.add('hidden'); 
                 hydrateFromURL(urlParams);
             } else {
-                // Sender Mode
+                // Sender Mode: Show welcome screen
                 resize();
                 animate();
                 document.body.style.backgroundImage = 'linear-gradient(135deg, #f3f4f6 0%, #d1d5db 100%)';
                 updateParticles(['✨', '🎂']);
-                document.getElementById('welcome-screen').classList.remove('hidden');
+                
+                // Explicitly show the welcome screen here
+                welcomeScreen.classList.remove('hidden');
 
                 // Add listeners
                 document.getElementById('personName').addEventListener('input', validateStart);
