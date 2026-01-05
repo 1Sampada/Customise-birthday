@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Birthday Surprise! 🎂</title>
+    <title>Birthday Surprise! (New Version) 🎂</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta property="og:title" content="A Birthday Surprise for You!">
     <meta property="og:description" content="Open to see your special card.">
@@ -12,7 +12,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@400;600;800&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@400;600;800&family=Gloria+Hallelujah&display=swap"
+        rel="stylesheet">
 
     <style>
         /* --- CORE STYLES --- */
@@ -67,13 +69,28 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeOut {
-            from { opacity: 1; transform: scale(1); }
-            to { opacity: 0; transform: scale(0.95); pointer-events: none; }
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.95);
+                pointer-events: none;
+            }
         }
 
         canvas#bg-canvas {
@@ -84,23 +101,41 @@
         }
 
         /* --- INTERACTIVE ELEMENTS --- */
-        .option, .rel-card {
+        .option,
+        .rel-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .option:hover, .rel-card:hover {
+        .option:hover,
+        .rel-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        .option.active, .rel-card.active {
+        /* 🔥 REMOVE DEFAULT BROWSER FOCUS RING */
+        .rel-card:focus,
+        .rel-card:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .rel-card {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            /* Mobile blue flash */
+        }
+
+        .option.active,
+        .rel-card.active {
             border: 2px solid currentColor;
             background-color: rgba(255, 255, 255, 0.95);
             transform: scale(1.05);
             box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6);
         }
 
-        .rel-card { border: 2px solid transparent; }
+        .rel-card {
+            border: 2px solid transparent;
+        }
 
         /* --- CANDLE ANIMATIONS --- */
         .candle-container {
@@ -184,19 +219,56 @@
         }
 
         @keyframes flicker-enhanced {
-            0%, 100% { transform: translateX(-50%) scale(1) skewX(0deg); opacity: 0.9; }
-            20% { transform: translateX(-50%) scale(1.05) skewX(-2deg); opacity: 1; }
-            40% { transform: translateX(-50%) scale(0.95) skewX(2deg); opacity: 0.8; }
-            60% { transform: translateX(-50%) scale(1.02) skewX(-1deg); opacity: 1; }
-            80% { transform: translateX(-50%) scale(0.98) skewX(1deg); opacity: 0.9; }
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1) skewX(0deg);
+                opacity: 0.9;
+            }
+
+            20% {
+                transform: translateX(-50%) scale(1.05) skewX(-2deg);
+                opacity: 1;
+            }
+
+            40% {
+                transform: translateX(-50%) scale(0.95) skewX(2deg);
+                opacity: 0.8;
+            }
+
+            60% {
+                transform: translateX(-50%) scale(1.02) skewX(-1deg);
+                opacity: 1;
+            }
+
+            80% {
+                transform: translateX(-50%) scale(0.98) skewX(1deg);
+                opacity: 0.9;
+            }
         }
 
-        .blown .flame { display: none; }
-        .blown .smoke { opacity: 0.6; animation: rise 2.5s forwards ease-out; }
+        .blown .flame {
+            display: none;
+        }
+
+        .blown .smoke {
+            opacity: 0.6;
+            animation: rise 2.5s forwards ease-out;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
 
         @keyframes rise {
-            from { transform: translateX(-50%) translateY(0) scale(1); }
-            to { transform: translateX(-50%) translateY(-80px) scale(2); opacity: 0; }
+            from {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+
+            to {
+                transform: translateX(-50%) translateY(-80px) scale(2);
+                opacity: 0;
+            }
         }
 
         /* --- COLLAGE STYLES --- */
@@ -218,7 +290,8 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.15) inset;
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Desktop: 3 cols */
+            grid-template-columns: repeat(3, 1fr);
+            /* Desktop: 3 cols */
             gap: 40px;
             padding: 60px 60px 100px 60px;
             overflow-y: auto;
@@ -232,8 +305,10 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-radius: 2rem;
             position: relative;
-            width: 100%; /* Fluid width */
-            max-width: 280px; /* Cap max width */
+            width: 100%;
+            /* Fluid width */
+            max-width: 280px;
+            /* Cap max width */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -255,34 +330,54 @@
         }
 
         .tape {
-            top: -15px; left: 50%; transform: translateX(-50%) rotate(-1deg);
-            width: 90px; height: 28px; background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); backdrop-filter: blur(4px);
-            position: absolute; pointer-events: none; z-index: 10;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            width: 90px;
+            height: 28px;
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(4px);
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .clip {
-            top: -20px; right: 25px; width: 20px; height: 45px;
-            border: 4px solid #9ca3af; border-radius: 12px;
-            position: absolute; pointer-events: none; z-index: 10;
+            top: -20px;
+            right: 25px;
+            width: 20px;
+            height: 45px;
+            border: 4px solid #9ca3af;
+            border-radius: 12px;
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
         }
 
         /* --- MOBILE LAYOUT FIX --- */
         @media (max-width: 640px) {
             #collage-board {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
-                gap: 12px; /* Smaller gap */
-                padding: 20px 15px 100px 15px; /* Less padding */
-                height: 95vh; /* Max height to fit screen */
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 columns for mobile */
+                gap: 12px;
+                /* Smaller gap */
+                padding: 20px 15px 100px 15px;
+                /* Less padding */
+                height: 95vh;
+                /* Max height to fit screen */
                 align-content: start;
                 border-radius: 2rem;
             }
 
             .polaroid {
-                padding: 8px 8px 35px 8px; /* Reduce frame padding */
+                padding: 8px 8px 35px 8px;
+                /* Reduce frame padding */
                 border-radius: 1rem;
-                max-width: none; /* Fill grid cell */
-                transform: none !important; /* Remove rotation to fit grid */
+                max-width: none;
+                /* Fill grid cell */
+                transform: none !important;
+                /* Remove rotation to fit grid */
             }
 
             .polaroid:hover {
@@ -290,21 +385,42 @@
             }
 
             .polaroid-img {
-                height: 110px; /* Smaller image height */
+                height: 110px;
+                /* Smaller image height */
                 border-radius: 0.8rem;
             }
 
             .handwritten {
-                font-size: 0.9rem; /* Smaller caption text */
+                font-size: 0.9rem;
+                /* Smaller caption text */
                 margin-top: 8px;
             }
 
-            .tape { width: 50px; height: 15px; top: -8px; }
-            .clip { width: 12px; height: 25px; top: -10px; right: 10px; border-width: 2px; }
+            .tape {
+                width: 50px;
+                height: 15px;
+                top: -8px;
+            }
+
+            .clip {
+                width: 12px;
+                height: 25px;
+                top: -10px;
+                right: 10px;
+                border-width: 2px;
+            }
         }
 
-        .polaroid-img:hover { background-color: #e5e7eb; border-color: #9ca3af; }
-        .polaroid-img img { width: 100%; height: 100%; object-fit: cover; }
+        .polaroid-img:hover {
+            background-color: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .polaroid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         /* --- NOTE STYLES --- */
         .lined-paper {
@@ -316,44 +432,114 @@
         }
 
         .paper-stack::before {
-            content: ''; position: absolute; top: 5px; left: 5px; right: -5px; bottom: -5px;
-            background: white; border-radius: 2rem; z-index: -1;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); opacity: 0.8;
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: -5px;
+            bottom: -5px;
+            background: white;
+            border-radius: 2rem;
+            z-index: -1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
         .copy-input {
-            font-family: monospace; background: #f3f4f6; color: #374151;
-            border: 1px solid #d1d5db; border-radius: 0.75rem;
+            font-family: monospace;
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            border-radius: 0.75rem;
+        }
+
+        .rel-card * {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .rel-card:focus,
+        .rel-card:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
         }
 
         /* --- CAPTURE CARD STYLES --- */
         #story-capture-container {
-            position: fixed; top: 0; left: -9999px; width: 540px; height: 960px; z-index: -100;
-            background: white; font-family: 'Poppins', sans-serif;
-            overflow: hidden; display: flex; flex-direction: column; padding: 30px; box-sizing: border-box; align-items: center;
+            position: fixed;
+            top: 0;
+            left: -9999px;
+            width: 540px;
+            height: 960px;
+            z-index: -100;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            box-sizing: border-box;
+            align-items: center;
         }
 
-        .story-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; margin-bottom: 20px; }
-        
-        .story-polaroid {
-            background: #ffffff; padding: 10px 10px 35px 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 12px; transform: rotate(-2deg);
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 20px;
         }
-        .story-polaroid:nth-child(even) { transform: rotate(2deg); }
-        .story-polaroid:nth-child(3n) { transform: rotate(-1deg) translateY(-5px); }
-        .story-polaroid img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; background-color: #f3f4f6; }
+
+        .story-polaroid {
+            background: #ffffff;
+            padding: 10px 10px 35px 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            transform: rotate(-2deg);
+        }
+
+        .story-polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .story-polaroid:nth-child(3n) {
+            transform: rotate(-1deg) translateY(-5px);
+        }
+
+        .story-polaroid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #f3f4f6;
+        }
 
         .story-note-paper {
-            background-color: #fffdf5; background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
-            background-size: 100% 1.8rem; line-height: 1.8rem; padding: 25px; width: 95%;
-            border-radius: 16px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            font-family: 'Gloria Hallelujah', cursive; font-size: 14px; color: #555; position: relative; flex-grow: 1;
+            background-color: #fffdf5;
+            background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 100% 1.8rem;
+            line-height: 1.8rem;
+            padding: 25px;
+            width: 95%;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 14px;
+            color: #555;
+            position: relative;
+            flex-grow: 1;
         }
 
         .washi-tape-top {
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-1deg); width: 120px; height: 25px;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            width: 120px;
+            height: 25px;
             background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 10px, rgba(240, 240, 240, 0.6) 10px, rgba(240, 240, 240, 0.6) 20px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); opacity: 0.8;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -361,7 +547,8 @@
 <body id="mainBody" class="min-h-screen py-10 w-screen flex items-center justify-center bg-gray-100">
     <canvas id="bg-canvas"></canvas>
 
-    <div id="welcome-screen" class="hidden glass-panel w-[90vw] max-w-lg p-10 rounded-[3rem] relative z-20 flex flex-col items-center text-center fade-in">
+    <div id="welcome-screen"
+        class="hidden glass-panel w-[90vw] max-w-lg p-10 rounded-[3rem] relative z-20 flex flex-col items-center text-center fade-in">
         <div class="mb-6">
             <span class="text-4xl">👋</span>
             <h1 class="text-3xl font-extrabold text-gray-800 mt-2">Create a Surprise!</h1>
@@ -369,42 +556,54 @@
         </div>
         <div class="w-full space-y-6">
             <div class="text-left">
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">Birthday Person's Name</label>
-                <input type="text" id="personName" placeholder="e.g. Sarah" class="glass-input w-full px-5 py-4 rounded-2xl text-lg font-semibold text-gray-700 placeholder-gray-400">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">Birthday Person's
+                    Name</label>
+                <input type="text" id="personName" placeholder="e.g. Sarah"
+                    class="glass-input w-full px-5 py-4 rounded-2xl text-lg font-semibold text-gray-700 placeholder-gray-400">
             </div>
 
             <div class="text-left">
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">Your Name (Sender)</label>
-                <input type="text" id="senderName" placeholder="e.g. Alex" class="glass-input w-full px-5 py-4 rounded-2xl text-lg font-semibold text-gray-700 placeholder-gray-400">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">Your Name
+                    (Sender)</label>
+                <input type="text" id="senderName" placeholder="e.g. Alex"
+                    class="glass-input w-full px-5 py-4 rounded-2xl text-lg font-semibold text-gray-700 placeholder-gray-400">
             </div>
 
             <div class="text-left">
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">Relationship Context</label>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">Relationship
+                    Context</label>
                 <div class="grid grid-cols-3 gap-3">
-                    <div onclick="selectRelation('partner', this)" class="rel-card cursor-pointer bg-white/40 p-3 rounded-2xl flex flex-col items-center justify-center gap-2 hover:bg-white text-rose-500">
+                    <div onclick="selectRelation('partner', this)"
+                        class="rel-card cursor-pointer bg-white/40 p-3 rounded-2xl flex flex-col items-center justify-center gap-2 hover:bg-white text-rose-500">
                         <span class="text-2xl">❤️</span><span class="text-xs font-bold text-gray-600">Partner</span>
                     </div>
-                    <div onclick="selectRelation('family', this)" class="rel-card cursor-pointer bg-white/40 p-3 rounded-2xl flex flex-col items-center justify-center gap-2 hover:bg-white text-amber-500">
+                    <div onclick="selectRelation('family', this)"
+                        class="rel-card cursor-pointer bg-white/40 p-3 rounded-2xl flex flex-col items-center justify-center gap-2 hover:bg-white text-amber-500">
                         <span class="text-2xl">🏡</span><span class="text-xs font-bold text-gray-600">Family</span>
                     </div>
-                    <div onclick="selectRelation('friends', this)" class="rel-card cursor-pointer bg-white/40 p-3 rounded-2xl flex flex-col items-center justify-center gap-2 hover:bg-white text-indigo-500 active">
+                    <div onclick="selectRelation('friends', this)"
+                        class="rel-card cursor-pointer bg-white/40 p-3 rounded-2xl flex flex-col items-center justify-center gap-2 hover:bg-white text-indigo-500">
                         <span class="text-2xl">🎉</span><span class="text-xs font-bold text-gray-600">Friends</span>
                     </div>
                 </div>
             </div>
-            <button onclick="enterBuilder()" id="startBtn" class="w-full py-4 rounded-2xl bg-gray-800 text-white font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 opacity-50 cursor-not-allowed" disabled>
+            <button onclick="enterBuilder()" id="startBtn"
+                class="w-full py-4 rounded-2xl bg-gray-800 text-white font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 opacity-50 cursor-not-allowed"
+                disabled>
                 Start Designing 🎨
             </button>
         </div>
     </div>
 
-    <div id="recipient-screen" class="hidden glass-panel w-[90vw] max-w-lg p-12 rounded-[3rem] relative z-20 flex flex-col items-center text-center">
+    <div id="recipient-screen"
+        class="hidden glass-panel w-[90vw] max-w-lg p-12 rounded-[3rem] relative z-20 flex flex-col items-center text-center">
         <div class="mb-8 relative">
             <span class="text-6xl animate-bounce block">🎁</span>
         </div>
         <h1 class="text-4xl font-extrabold text-gray-800 mb-2">A Surprise for You!</h1>
         <p class="text-gray-500 mb-8">Someone wrapped a secret birthday gift for you!</p>
-        <button onclick="openSurprise()" class="px-10 py-4 rounded-2xl bg-gray-800 text-white font-bold text-xl shadow-xl hover:scale-105 transition-transform">
+        <button onclick="openSurprise()"
+            class="px-10 py-4 rounded-2xl bg-gray-800 text-white font-bold text-xl shadow-xl hover:scale-105 transition-transform">
             Open Gift ✨
         </button>
     </div>
@@ -416,7 +615,8 @@
 
             <div class="candle-container relative mt-10" onclick="manualBlow()">
                 <img id="cake-display" src="" class="w-64 drop-shadow-2xl z-10 relative" alt="Birthday Cake">
-                <img id="topping-display" src="" class="absolute bottom-0 left-0 w-36 z-20 drop-shadow-lg" style="display:none" alt="Topping">
+                <img id="topping-display" src="" class="absolute bottom-0 left-0 w-36 z-20 drop-shadow-lg"
+                    style="display:none" alt="Topping">
 
                 <div class="candle-wrapper" id="candle-holder">
                     <div class="candle">
@@ -434,42 +634,51 @@
                 </div>
             </div>
 
-            <button id="manual-blow-btn" onclick="manualBlow()" class="mt-12 text-gray-400 text-xs hover:text-gray-600 underline cursor-pointer hidden">
+            <button id="manual-blow-btn" onclick="manualBlow()"
+                class="mt-12 text-gray-400 text-xs hover:text-gray-600 underline cursor-pointer hidden">
                 (Mic not working? Tap here to blow)
             </button>
         </div>
     </div>
 
-    <div id="builder-screen" class="glass-panel w-[90vw] max-w-5xl h-[85vh] rounded-[3rem] flex flex-col md:flex-row relative z-10 overflow-hidden hidden opacity-0">
+    <div id="builder-screen"
+        class="glass-panel w-[90vw] max-w-5xl h-[85vh] rounded-[3rem] flex flex-col md:flex-row relative z-10 overflow-hidden hidden opacity-0">
         <div class="w-full md:w-1/2 p-8 flex flex-col h-full bg-white/40 border-r border-white/50">
             <div class="mb-4">
-                <h1 class="text-2xl font-extrabold text-gray-800">Baking for <span id="display-name" class="text-pink-500">Someone</span></h1>
+                <h1 class="text-2xl font-extrabold text-gray-800">Baking for <span id="display-name"
+                        class="text-pink-500">Someone</span></h1>
             </div>
             <div class="flex-grow overflow-y-auto custom-scroll pr-2 relative">
                 <div id="step1" class="fade-in">
                     <h2 class="text-sm font-bold text-gray-500 uppercase mb-3">1. Flavor Base</h2>
                     <div class="grid grid-cols-3 gap-3 pb-4">
-                        <div onclick="selectCake('cake1.png', 'blueberry')" class="option cursor-pointer bg-white p-2 rounded-2xl text-blue-500">
+                        <div onclick="selectCake('cake1.png', 'blueberry')"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-blue-500">
                             <img src="cakes/cake1.png" class="w-full h-auto object-contain" alt="Cake 1">
                             <p class="text-[10px] text-center font-bold mt-1">Blueberry</p>
                         </div>
-                        <div onclick="selectCake('cake2.png', 'strawberry')" class="option cursor-pointer bg-white p-2 rounded-2xl text-pink-500">
+                        <div onclick="selectCake('cake2.png', 'strawberry')"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-pink-500">
                             <img src="cakes/cake2.png" class="w-full h-auto object-contain" alt="Cake 2">
                             <p class="text-[10px] text-center font-bold mt-1">Strawberry</p>
                         </div>
-                        <div onclick="selectCake('cake3.png', 'mango')" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-500">
+                        <div onclick="selectCake('cake3.png', 'mango')"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-500">
                             <img src="cakes/cake3.png" class="w-full h-auto object-contain" alt="Cake 3">
                             <p class="text-[10px] text-center font-bold mt-1">Mango</p>
                         </div>
-                        <div onclick="selectCake('cake4.png', 'chocolate')" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectCake('cake4.png', 'chocolate')"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="cakes/cake4.png" class="w-full h-auto object-contain" alt="Cake 4">
                             <p class="text-[10px] text-center font-bold mt-1">Choco</p>
                         </div>
-                        <div onclick="selectCake('cake5.png', 'cream')" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectCake('cake5.png', 'cream')"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="cakes/cake5.png" class="w-full h-auto object-contain" alt="Cake 5">
                             <p class="text-[10px] text-center font-bold mt-1">Cream</p>
                         </div>
-                        <div onclick="selectCake('cake6.png', 'raspberry')" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectCake('cake6.png', 'raspberry')"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="cakes/cake6.png" class="w-full h-auto object-contain" alt="Cake 6">
                             <p class="text-[10px] text-center font-bold mt-1">Raspberry</p>
                         </div>
@@ -478,27 +687,33 @@
                 <div id="step2" class="mt-6 fade-in">
                     <h2 class="text-sm font-bold text-gray-500 uppercase mb-3">2. Topping</h2>
                     <div class="grid grid-cols-3 gap-3 pb-4">
-                        <div onclick="selectTopping('topping1.png', this)" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectTopping('topping1.png', this)"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="toppings/topping1.png" class="w-full h-auto object-contain" alt="Topping 1">
                             <p class="text-[10px] text-center font-bold mt-1">Donuts</p>
                         </div>
-                        <div onclick="selectTopping('topping2.png', this)" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectTopping('topping2.png', this)"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="toppings/topping2.png" class="w-full h-auto object-contain" alt="Topping 2">
                             <p class="text-[10px] text-center font-bold mt-1">Brownie</p>
                         </div>
-                        <div onclick="selectTopping('topping3.png', this)" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectTopping('topping3.png', this)"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="toppings/topping3.png" class="w-full h-auto object-contain" alt="Topping 3">
                             <p class="text-[10px] text-center font-bold mt-1">Sundae</p>
                         </div>
-                        <div onclick="selectTopping('topping4.png', this)" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectTopping('topping4.png', this)"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="toppings/topping4.png" class="w-full h-auto object-contain" alt="Topping 4">
                             <p class="text-[10px] text-center font-bold mt-1">Mini Ice</p>
                         </div>
-                        <div onclick="selectTopping('topping5.png', this)" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectTopping('topping5.png', this)"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="toppings/topping5.png" class="w-full h-auto object-contain" alt="Topping 5">
                             <p class="text-[10px] text-center font-bold mt-1">CupCake</p>
                         </div>
-                        <div onclick="selectTopping('topping6.png', this)" class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
+                        <div onclick="selectTopping('topping6.png', this)"
+                            class="option cursor-pointer bg-white p-2 rounded-2xl text-yellow-800">
                             <img src="toppings/topping6.png" class="w-full h-auto object-contain" alt="Topping 6">
                             <p class="text-[10px] text-center font-bold mt-1">Pops</p>
                         </div>
@@ -506,15 +721,18 @@
                 </div>
             </div>
             <div class="pt-4 mt-auto border-t border-gray-200/50 flex justify-end">
-                <button onclick="showCollage()" class="px-8 py-3 rounded-2xl bg-gray-800 text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                <button onclick="showCollage()"
+                    class="px-8 py-3 rounded-2xl bg-gray-800 text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
                     Next Step ➝
                 </button>
             </div>
         </div>
         <div class="w-full md:w-1/2 h-full flex flex-col items-center justify-center relative bg-white/20">
             <div class="cake-stage z-20 flex items-center justify-center relative">
-                <img id="preview-cake" src="cakes/cake1.png" class="w-64 layer drop-shadow-2xl z-10" alt="Cake Preview" />
-                <img id="preview-topping" src="" class="absolute bottom-0 left-0 w-36 z-20 drop-shadow-lg" style="display: none;" alt="Topping Preview" />
+                <img id="preview-cake" src="cakes/cake1.png" class="w-64 layer drop-shadow-2xl z-10"
+                    alt="Cake Preview" />
+                <img id="preview-topping" src="" class="absolute bottom-0 left-0 w-36 z-20 drop-shadow-lg"
+                    style="display: none;" alt="Topping Preview" />
             </div>
             <p class="absolute bottom-8 text-xs font-bold tracking-widest opacity-40 uppercase">Live Preview</p>
         </div>
@@ -524,11 +742,15 @@
         <div id="collage-board">
             <div class="polaroid">
                 <div class="clip"></div>
-                <div class="polaroid-img cursor-pointer" onclick="triggerUpload('u1')">
-                    <input type="file" id="u1" hidden accept="image/*" onchange="previewImage(event,'i1','p1')">
+                <label for="u1" class="polaroid-img cursor-pointer block">
+                    <input type="file" id="u1" accept="image/*" class="hidden" onchange="previewImage(event,'i1','p1')">
+
                     <img id="i1" class="hidden" alt="Memory 1">
-                    <div id="p1" class="flex flex-col items-center text-gray-300"><span class="text-4xl opacity-50">+</span></div>
-                </div>
+                    <div id="p1" class="flex flex-col items-center text-gray-300">
+                        <span class="text-4xl opacity-50">+</span>
+                    </div>
+                </label>
+
                 <p id="cap1" class="handwritten text-center mt-3 text-xl" contenteditable="true">Memories</p>
             </div>
             <div class="polaroid">
@@ -536,7 +758,8 @@
                 <div class="polaroid-img cursor-pointer" onclick="triggerUpload('u2')">
                     <input type="file" id="u2" hidden accept="image/*" onchange="previewImage(event,'i2','p2')">
                     <img id="i2" class="hidden" alt="Memory 2">
-                    <div id="p2" class="flex flex-col items-center text-gray-300"><span class="text-4xl opacity-50">+</span></div>
+                    <div id="p2" class="flex flex-col items-center text-gray-300"><span
+                            class="text-4xl opacity-50">+</span></div>
                 </div>
                 <p id="cap2" class="handwritten text-center mt-3 text-xl" contenteditable="true">Fun Times</p>
             </div>
@@ -545,7 +768,8 @@
                 <div class="polaroid-img cursor-pointer" onclick="triggerUpload('u3')">
                     <input type="file" id="u3" hidden accept="image/*" onchange="previewImage(event,'i3','p3')">
                     <img id="i3" class="hidden" alt="Memory 3">
-                    <div id="p3" class="flex flex-col items-center text-gray-300"><span class="text-4xl opacity-50">+</span></div>
+                    <div id="p3" class="flex flex-col items-center text-gray-300"><span
+                            class="text-4xl opacity-50">+</span></div>
                 </div>
                 <p id="cap3" class="handwritten text-center mt-3 text-xl" contenteditable="true">Smiles</p>
             </div>
@@ -554,7 +778,8 @@
                 <div class="polaroid-img cursor-pointer" onclick="triggerUpload('u4')">
                     <input type="file" id="u4" hidden accept="image/*" onchange="previewImage(event,'i4','p4')">
                     <img id="i4" class="hidden" alt="Memory 4">
-                    <div id="p4" class="flex flex-col items-center text-gray-300"><span class="text-4xl opacity-50">+</span></div>
+                    <div id="p4" class="flex flex-col items-center text-gray-300"><span
+                            class="text-4xl opacity-50">+</span></div>
                 </div>
                 <p id="cap4" class="handwritten text-center mt-3 text-xl" contenteditable="true">The Best</p>
             </div>
@@ -563,7 +788,8 @@
                 <div class="polaroid-img cursor-pointer" onclick="triggerUpload('u5')">
                     <input type="file" id="u5" hidden accept="image/*" onchange="previewImage(event,'i5','p5')">
                     <img id="i5" class="hidden" alt="Memory 5">
-                    <div id="p5" class="flex flex-col items-center text-gray-300"><span class="text-4xl opacity-50">+</span></div>
+                    <div id="p5" class="flex flex-col items-center text-gray-300"><span
+                            class="text-4xl opacity-50">+</span></div>
                 </div>
                 <p id="cap5" class="handwritten text-center mt-3 text-xl" contenteditable="true">Sweet</p>
             </div>
@@ -572,23 +798,29 @@
                 <div class="polaroid-img cursor-pointer" onclick="triggerUpload('u6')">
                     <input type="file" id="u6" hidden accept="image/*" onchange="previewImage(event,'i6','p6')">
                     <img id="i6" class="hidden" alt="Memory 6">
-                    <div id="p6" class="flex flex-col items-center text-gray-300"><span class="text-4xl opacity-50">+</span></div>
+                    <div id="p6" class="flex flex-col items-center text-gray-300"><span
+                            class="text-4xl opacity-50">+</span></div>
                 </div>
                 <p id="cap6" class="handwritten text-center mt-3 text-xl" contenteditable="true">Forever</p>
             </div>
         </div>
-        <button id="writeNoteBtn" onclick="showNote()" class="fixed bottom-8 right-8 z-50 px-8 py-4 rounded-full bg-white text-gray-800 font-bold shadow-2xl hover:scale-105 transition-transform flex items-center gap-3 border border-gray-100">
+        <button id="writeNoteBtn" onclick="showNote()"
+            class="fixed bottom-8 right-8 z-50 px-8 py-4 rounded-full bg-white text-gray-800 font-bold shadow-2xl hover:scale-105 transition-transform flex items-center gap-3 border border-gray-100">
             Write Message <span class="text-xl">✍️</span>
         </button>
     </div>
 
-    <div id="note-screen" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+    <div id="note-screen"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
         <div class="paper-stack w-[90vw] max-w-2xl relative">
             <div class="glass-panel lined-paper rounded-[2rem] p-10 relative flex flex-col h-[70vh] md:h-auto">
                 <div class="mb-4">
-                    <h2 class="handwritten text-3xl font-bold text-gray-800">Dear <span id="note-name" class="text-pink-600">Name</span>,</h2>
+                    <h2 class="handwritten text-3xl font-bold text-gray-800">Dear <span id="note-name"
+                            class="text-pink-600">Name</span>,</h2>
                 </div>
-                <textarea id="final-note" class="w-full flex-grow bg-transparent border-none outline-none handwritten text-xl resize-none custom-scroll text-gray-700" placeholder="Write your birthday wish here..."></textarea>
+                <textarea id="final-note"
+                    class="w-full flex-grow bg-transparent border-none outline-none handwritten text-xl resize-none custom-scroll text-gray-700"
+                    placeholder="Write your birthday wish here..."></textarea>
 
                 <div id="signature-area" class="mt-8 text-right cursor-pointer" onclick="revealSender(this)">
                     <p class="handwritten text-lg text-gray-500">With all my heart,</p>
@@ -600,21 +832,25 @@
 
                 <div class="flex justify-between mt-6 items-end">
                     <div id="download-btn-container" class="hidden">
-                        <button onclick="downloadStory()" class="px-6 py-3 rounded-xl bg-pink-500 text-white font-bold shadow-lg hover:bg-pink-600 hover:-translate-y-1 transition-all flex items-center gap-2">
+                        <button onclick="downloadStory()"
+                            class="px-6 py-3 rounded-xl bg-pink-500 text-white font-bold shadow-lg hover:bg-pink-600 hover:-translate-y-1 transition-all flex items-center gap-2">
                             <span class="text-lg">📸</span> Save Memory Card
                         </button>
-                        <p class="text-[10px] text-gray-400 mt-1 ml-1 max-w-[120px] leading-tight">For your Instagram Story!</p>
+                        <p class="text-[10px] text-gray-400 mt-1 ml-1 max-w-[120px] leading-tight">For your Instagram
+                            Story!</p>
                     </div>
 
                     <div id="seal-btn-container">
-                        <button onclick="finishAndShare()" class="px-8 py-3 rounded-xl bg-gray-800 text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                        <button onclick="finishAndShare()"
+                            class="px-8 py-3 rounded-xl bg-gray-800 text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
                             Seal & Create Link 🔗
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div id="share-modal" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center bg-white/95 rounded-[2rem] p-8 fade-in z-50">
+            <div id="share-modal"
+                class="hidden absolute inset-0 flex flex-col items-center justify-center text-center bg-white/95 rounded-[2rem] p-8 fade-in z-50">
                 <span class="text-6xl mb-4">🎉</span>
                 <h2 class="text-3xl font-bold text-gray-800 mb-2">Card Ready!</h2>
                 <p class="text-xs text-gray-400 mb-6 max-w-xs mx-auto">Your card is now hidden inside a secret link.</p>
@@ -623,13 +859,16 @@
                     <label class="text-xs font-bold text-gray-500 uppercase">Copy this Magic Link</label>
                     <div class="flex gap-2 mt-1">
                         <input id="share-link" type="text" readonly class="copy-input w-full p-3 text-sm" value="">
-                        <button onclick="copyLink()" class="bg-gray-200 hover:bg-gray-300 px-4 rounded-lg font-bold text-gray-600">Copy</button>
+                        <button onclick="copyLink()"
+                            class="bg-gray-200 hover:bg-gray-300 px-4 rounded-lg font-bold text-gray-600">Copy</button>
                     </div>
                 </div>
-                <a id="share-link-anchor" href="#" target="_blank" rel="noopener noreferrer" class="w-full mt-4 px-4 py-4 bg-blue-600 text-white rounded-xl text-center font-bold shadow-lg active:scale-95 transition">
+                <a id="share-link-anchor" href="#" target="_blank" rel="noopener noreferrer"
+                    class="w-full mt-4 px-4 py-4 bg-blue-600 text-white rounded-xl text-center font-bold shadow-lg active:scale-95 transition">
                     🎁 Tap to Open the Surprise
                 </a>
-                <a id="wa-btn" href="#" target="_blank" class="w-full py-3 mt-4 rounded-xl bg-green-500 text-white font-bold shadow-md hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+                <a id="wa-btn" href="#" target="_blank"
+                    class="w-full py-3 mt-4 rounded-xl bg-green-500 text-white font-bold shadow-md hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
                     <span>Send on WhatsApp</span> 💬
                 </a>
             </div>
@@ -648,12 +887,24 @@
             </div>
 
             <div class="story-grid">
-                <div id="story-photo-1" class="story-polaroid hidden"><img src="" alt="Story 1"><p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p></div>
-                <div id="story-photo-2" class="story-polaroid hidden"><img src="" alt="Story 2"><p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p></div>
-                <div id="story-photo-3" class="story-polaroid hidden"><img src="" alt="Story 3"><p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p></div>
-                <div id="story-photo-4" class="story-polaroid hidden"><img src="" alt="Story 4"><p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p></div>
-                <div id="story-photo-5" class="story-polaroid hidden"><img src="" alt="Story 5"><p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p></div>
-                <div id="story-photo-6" class="story-polaroid hidden"><img src="" alt="Story 6"><p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p></div>
+                <div id="story-photo-1" class="story-polaroid hidden"><img src="" alt="Story 1">
+                    <p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p>
+                </div>
+                <div id="story-photo-2" class="story-polaroid hidden"><img src="" alt="Story 2">
+                    <p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p>
+                </div>
+                <div id="story-photo-3" class="story-polaroid hidden"><img src="" alt="Story 3">
+                    <p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p>
+                </div>
+                <div id="story-photo-4" class="story-polaroid hidden"><img src="" alt="Story 4">
+                    <p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p>
+                </div>
+                <div id="story-photo-5" class="story-polaroid hidden"><img src="" alt="Story 5">
+                    <p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p>
+                </div>
+                <div id="story-photo-6" class="story-polaroid hidden"><img src="" alt="Story 6">
+                    <p class="font-['Gloria_Hallelujah'] text-center mt-2 text-gray-600 text-xs"></p>
+                </div>
             </div>
 
             <div class="story-note-paper">
@@ -662,7 +913,8 @@
             </div>
 
             <div class="w-full text-center mt-6 mb-4">
-                <p id="story-sender" class="font-bold text-gray-700 text-xl font-['Gloria_Hallelujah']">Love, Sender Name</p>
+                <p id="story-sender" class="font-bold text-gray-700 text-xl font-['Gloria_Hallelujah']">Love, Sender
+                    Name</p>
                 <p id="story-date" class="text-gray-500 text-xs mt-1 uppercase tracking-widest"></p>
             </div>
         </div>
@@ -686,7 +938,7 @@
 
         // 🔥 CLOUDINARY CONFIG - YOU MUST CHANGE THIS!
         // REPLACE "xxxxx" WITH YOUR ACTUAL CLOUDINARY CLOUD NAME
-        const CLOUDINARY_CLOUD_NAME = "dehzhyku9"; 
+        const CLOUDINARY_CLOUD_NAME = "dehzhyku9";
         const CLOUDINARY_UPLOAD_PRESET = "birthday_unsigned";
 
         /* --- CONFIGURATION --- */
@@ -700,7 +952,7 @@
         let state = {
             name: "",
             sender: "",
-            relation: "friends",
+            relation: "", // UPDATED: Starts empty
             cake: "cake1.png",
             topping: "",
             photos: [],
@@ -712,13 +964,19 @@
 
         /* --- INIT --- */
         window.onload = () => {
+            // 🔥 HARD RESET ANY AUTO-FOCUS (Chrome bug fix)
+            setTimeout(() => {
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }, 0);
             const urlParams = new URLSearchParams(window.location.search);
             const welcomeScreen = document.getElementById('welcome-screen');
 
             if (urlParams.has('gift')) {
                 // Recipient Mode: Ensure welcome screen is HIDDEN
                 isRecipientMode = true;
-                welcomeScreen.classList.add('hidden'); 
+                welcomeScreen.classList.add('hidden');
                 hydrateFromURL(urlParams);
             } else {
                 // Sender Mode: Show welcome screen
@@ -726,9 +984,20 @@
                 animate();
                 document.body.style.backgroundImage = 'linear-gradient(135deg, #f3f4f6 0%, #d1d5db 100%)';
                 updateParticles(['✨', '🎂']);
-                
+
                 // Explicitly show the welcome screen here
                 welcomeScreen.classList.remove('hidden');
+
+                // FORCE RESET VISUALS ON LOAD
+                // This ensures no old caching issues keep 'friends' selected
+                document.querySelectorAll('.rel-card').forEach(c => c.classList.remove('active'));
+                state.relation = "";
+
+                // ⚠️ DOUBLE-CHECK FORCE REMOVAL (100ms delay to catch any lingering browser autofill/cache)
+                setTimeout(() => {
+                    document.getElementById('friends-card').classList.remove('active');
+                    state.relation = ""; // Ensure state is reset
+                }, 100);
 
                 // Add listeners
                 document.getElementById('personName').addEventListener('input', validateStart);
@@ -742,7 +1011,8 @@
             const sName = document.getElementById('senderName').value.trim();
             const btn = document.getElementById('startBtn');
 
-            if (rName.length > 0 && sName.length > 0) {
+            // UPDATED: User MUST select a relation (state.relation !== "")
+            if (rName.length > 0 && sName.length > 0 && state.relation !== "") {
                 btn.disabled = false;
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
                 state.name = rName;
@@ -758,10 +1028,12 @@
             document.querySelectorAll('.rel-card').forEach(c => c.classList.remove('active'));
             if (el) el.classList.add('active');
             applyTheme(rel);
+            validateStart(); // Trigger validation to enable button
         }
 
         function applyTheme(rel) {
             const t = themes[rel];
+            if (!t) return; // Guard clause
             document.body.style.backgroundImage = t.bg;
             const startBtn = document.getElementById('startBtn');
             if (startBtn) startBtn.style.backgroundColor = t.accent;
@@ -780,7 +1052,7 @@
                 document.getElementById('builder-screen').style.opacity = "1";
                 // Select default cake
                 const defaultCake = document.querySelector("#step1 .option");
-                if(defaultCake) defaultCake.classList.add('active');
+                if (defaultCake) defaultCake.classList.add('active');
             }, 500);
         }
 
@@ -808,10 +1080,6 @@
             }, 600);
         }
 
-        function triggerUpload(id) {
-            document.getElementById(id).click();
-        }
-
         async function previewImage(e, imgId, placeholderId) {
             const file = e.target.files[0];
             if (!file) return;
@@ -833,7 +1101,7 @@
                     { method: "POST", body: formData }
                 );
                 const data = await res.json();
-                
+
                 if (data.error) {
                     alert("Upload failed. Check Cloud Name.");
                     return;
@@ -841,7 +1109,7 @@
 
                 // Optimized mobile-friendly image
                 const imageURL = data.secure_url.replace("/upload/", "/upload/q_auto,f_auto,w_900/");
-                
+
                 document.getElementById(imgId).src = imageURL;
                 document.getElementById(imgId).classList.remove("hidden");
                 document.getElementById(placeholderId).classList.add("hidden");
@@ -928,11 +1196,11 @@
                 animate();
                 applyTheme(state.relation);
                 document.getElementById('cake-display').src = `cakes/${state.cake}`;
-                if(state.topping) {
+                if (state.topping) {
                     document.getElementById('topping-display').src = `toppings/${state.topping}`;
                     document.getElementById('topping-display').style.display = 'block';
                 }
-                
+
                 document.getElementById('recipient-screen').classList.remove('hidden');
             } catch (err) {
                 console.error(err);
@@ -1087,7 +1355,7 @@
             }
 
             const captureElement = document.getElementById('story-capture-container');
-            
+
             html2canvas(captureElement, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: null }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Birthday-Memory-${state.name}.png`;
@@ -1145,4 +1413,5 @@
         }
     </script>
 </body>
+
 </html>
