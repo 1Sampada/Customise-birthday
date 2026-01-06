@@ -742,7 +742,7 @@
         <div id="collage-board">
             <div class="polaroid">
                 <div class="clip"></div>
-                <label for="u1" class="polaroid-img cursor-pointer block">
+                <label for="u1" class="polaroid-img cursor-pointer">
                     <input type="file" id="u1" accept="image/*" class="hidden" onchange="previewImage(event,'i1','p1')">
 
                     <img id="i1" class="hidden" alt="Memory 1">
@@ -1079,7 +1079,18 @@
                 document.getElementById('collage-screen').classList.add('fade-in');
             }, 600);
         }
+        /* --- HELPER FOR UPLOADS --- */
+        function triggerUpload(inputId) {
+            const fileInput = document.getElementById(inputId);
 
+            // Prevent the click from bubbling back up to the parent div
+            // effectively stopping an infinite loop
+            fileInput.onclick = function (e) {
+                e.stopPropagation();
+            }
+
+            fileInput.click();
+        }
         async function previewImage(e, imgId, placeholderId) {
             const file = e.target.files[0];
             if (!file) return;
